@@ -1,3 +1,5 @@
+## Install
+
 1. Install nix package manager via Lix. Answer Y to both prompts.
 
    ```
@@ -28,3 +30,19 @@
    ```
    nix run nix-darwin/nix-darwin-24.11#darwin-rebuild -- switch
    ```
+
+## Updating
+
+To reload the configuration, run
+
+```
+darwin-rebuild switch
+```
+
+## Development
+
+To format the code, run
+
+```
+nix fmt
+```

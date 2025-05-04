@@ -5,43 +5,63 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-formatter-pack = {
+      # use by running `nix fmt`
+      url = "github:Gerschtli/nix-formatter-pack";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
-  let
-  host = {
+  outputs = { self, nix-darwin, nixpkgs, nix-formatter-pack }:
+    let
+      host = {
         name = "mac-studio";
         computerName = "mac-studio";
         hostName = "mac-studio.local";
         localHostName = "mac-studio";
       };
-    configuration = { pkgs, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [ pkgs.vim
-        ];
 
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
+      configuration = { pkgs, ... }: {
+        # List packages installed in system profile. To search by name, run:
+        # $ nix-env -qaP | grep wget
+        environment.systemPackages =
+          [
+            pkgs.vim
+          ];
 
-      # Enable alternative shell support in nix-darwin.
-      # programs.fish.enable = true;
+        # Necessary for using flakes on this system.
+        nix.settings.experimental-features = "nix-command flakes";
 
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
+        # Enable alternative shell support in nix-darwin.
+        # programs.fish.enable = true;
 
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 5;
+        # Set Git commit hash for darwin-version.
+        system.configurationRevision = self.rev or self.dirtyRev or null;
 
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+        # Used for backwards compatibility, please read the changelog before changing.
+        # $ darwin-rebuild changelog
+        system.stateVersion = 5;
+
+        # The platform the configuration will be used on.
+        nixpkgs.hostPlatform = "aarch64-darwin";
+      };
+      forEachSystem = nixpkgs.lib.genAttrs [ "aarch64-darwin" ];
+    in
+    {
+      formatter = forEachSystem (system:
+        nix-formatter-pack.lib.mkFormatter {
+          pkgs = nixpkgs.legacyPackages.${system};
+
+          config.tools = {
+            deadnix.enable = true;
+            nixpkgs-fmt.enable = true;
+            statix.enable = true;
+          };
+        });
+
+      darwinConfigurations.${host.name} = nix-darwin.lib.darwinSystem {
+        modules = [ configuration ];
+      };
     };
-  in
-  {
-    darwinConfigurations.${host.name} = nix-darwin.lib.darwinSystem {
-      modules = [ configuration ];
-    };
-  };
 }
