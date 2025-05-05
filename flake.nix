@@ -27,7 +27,7 @@
     , nix-darwin
     , nixpkgs
     , nix-formatter-pack
-    ,...
+    , ...
     }:
     let
       host = {
@@ -46,7 +46,7 @@
 
       theme = { };
 
-      configuration = { pkgs,  ... }: {
+      configuration = { pkgs, ... }: {
         networking = {
           inherit (host) hostName;
           inherit (host) localHostName;
