@@ -2,19 +2,6 @@
 , user
 , ...
 }:
-let
-  tmux-sessionizer = pkgs.tmuxPlugins.mkTmuxPlugin
-    rec {
-      pluginName = "tmux-sessionizer";
-      version = "0.4.5";
-      src = pkgs.fetchFromGitHub {
-        owner = "jrmoulton";
-        repo = "tmux-sessionizer";
-        rev = "v${version}";
-        hash = "sha256-uoSm9oWZSiqwsg7dVVMay9COL5MEK3a5Pd+D66RzzPM=";
-      };
-    };
-in
 {
   home-manager.users.${user.username} = _: {
     programs.tmux = {
@@ -39,32 +26,26 @@ in
           '';
         }
         {
-          plugin = tmux-sessionizer;
-          extraConfig = ''
-            bind-key -r -T prefix p  display-popup -E "tms switch"
-            bind-key -r -T prefix P  display-popup -E "tms"
-          '';
-        }
-        {
           plugin = vim-tmux-navigator;
         }
-        {
-          plugin = resurrect;
-          extraConfig = ''
-            set -g @resurrect-strategy-nvim 'session'
-          '';
-        }
-        {
-          plugin = continuum;
-          extraConfig = ''
-            set -g @continuum-restore 'on'
-            set -g @continuum-save-interval '1'
-          '';
-        }
+         {
+           plugin = resurrect;
+           extraConfig = ''
+             set -g @resurrect-strategy-nvim 'session'
+           '';
+         }
+         {
+           plugin = continuum;
+           extraConfig = ''
+             set -g @continuum-restore 'on'
+             set -g @continuum-save-interval '1'
+           '';
+         }
       ];
 
       extraConfig = ''
         set -g repeat-time 750 
+        set-option -sg escape-time 10
         set -g mouse on   
 
         unbind d
@@ -81,6 +62,10 @@ in
         bind-key -r -T prefix k resize-pane -U 5
         bind-key -r -T prefix l resize-pane -R
 
+        bind-key -r -T prefix p  display-popup -E "tms switch"
+        bind-key -r -T prefix P  display-popup -E "tms"
+
+        set-option -g default-command "${pkgs.zsh}/bin/zsh"
       '';
     };
   };

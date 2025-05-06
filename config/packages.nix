@@ -81,5 +81,7 @@
 
     # Text Editors
     vim
+
+    tmux-sessionizer
   ];
 }

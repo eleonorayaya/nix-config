@@ -41,6 +41,9 @@
           bold_font = "auto";
           italic_font = "auto";
           bold_italic_font = "auto";
+
+          # shell
+          shell_integration = "enabled";
         };
         keybindings = {
           "cmd+k" = "";
