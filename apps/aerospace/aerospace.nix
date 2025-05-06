@@ -1,15 +1,19 @@
-_:
+{ pkgs, ... }:
+let
+  sb = "${pkgs.sketchybar}/bin/sketchybar";
+  trigger-workspace-change = "${sb} --trigger aerospace_workspace_change";
+in
 {
   services.aerospace = {
     enable = true;
     settings = {
       gaps = {
-        inner.horizontal = 3;
-        inner.vertical = 3;
-        outer.left = 3;
-        outer.bottom = 3;
-        outer.top = 3;
-        outer.right = 3;
+        inner.horizontal = 6;
+        inner.vertical = 6;
+        outer.left = 6;
+        outer.bottom = 6;
+        outer.top = 6;
+        outer.right = 6;
       };
 
       mode.main.binding = {
@@ -71,6 +75,12 @@ _:
           "main"
         ];
       };
+
+      exec-on-workspace-change = [
+        "/bin/bash"
+        "-c"
+        "${trigger-workspace-change} FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
+      ];
 
       automatically-unhide-macos-hidden-apps = true;
 

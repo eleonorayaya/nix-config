@@ -56,7 +56,7 @@
         homeDirectory = "/Users/eleonora";
       };
 
-      theme = { };
+      theme = builtins.fromJSON (builtins.readFile ./theme/catppuccin/frappe.json);
 
       configuration = { pkgs, ... }: {
         networking = {
