@@ -90,6 +90,38 @@
         "type": "github"
       }
     },
+    "homebrew-cask": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1746487012,
+        "narHash": "sha256-MbhSZ7Uvl2+vzrdy7GCLuVBAQNkhXiOEPOpnwItBQpw=",
+        "owner": "homebrew",
+        "repo": "homebrew-cask",
+        "rev": "42fecdd3d7a33dbd2f3dbf632e945c3ff615f239",
+        "type": "github"
+      },
+      "original": {
+        "owner": "homebrew",
+        "repo": "homebrew-cask",
+        "type": "github"
+      }
+    },
+    "homebrew-core": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1746483187,
+        "narHash": "sha256-e7qlicrZkKGcuY5wzL40Kpu6bPvAZKcOkyr/GbLtvh0=",
+        "owner": "homebrew",
+        "repo": "homebrew-core",
+        "rev": "ee85139a04990d3fd93abc802dd92dac6a65558d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "homebrew",
+        "repo": "homebrew-core",
+        "type": "github"
+      }
+    },
     "mac-app-util": {
       "inputs": {
         "cl-nix-lite": "cl-nix-lite",
@@ -289,6 +321,8 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "homebrew-cask": "homebrew-cask",
+        "homebrew-core": "homebrew-core",
         "mac-app-util": "mac-app-util",
         "nix-darwin": "nix-darwin",
         "nix-formatter-pack": "nix-formatter-pack",

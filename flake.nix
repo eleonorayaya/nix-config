@@ -7,6 +7,7 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     nix-formatter-pack = {
+      # use by running `nix fmt`
       url = "github:Gerschtli/nix-formatter-pack";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -18,6 +19,14 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
   };
 
   outputs =
@@ -27,6 +36,9 @@
     , nix-darwin
     , nixpkgs
     , nix-formatter-pack
+    , nix-homebrew
+    , homebrew-core
+    , homebrew-cask
     , ...
     }:
     let
@@ -98,6 +110,7 @@
             statix.enable = true;
           };
         });
+
       darwinConfigurations.${host.name} = nix-darwin.lib.darwinSystem {
         modules = [
           configuration
@@ -112,7 +125,28 @@
           ./config/default.nix
 
           home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
           mac-app-util.darwinModules.default
+
+          {
+            nix-homebrew = {
+              enable = true;
+
+              # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+              enableRosetta = false;
+
+              user = user.username;
+
+              taps = {
+                "homebrew/homebrew-core" = homebrew-core;
+                "homebrew/homebrew-cask" = homebrew-cask;
+                # "homebrew/homebrew-bundle" = homebrew-bundle;
+              };
+
+              mutableTaps = false;
+              autoMigrate = true;
+            };
+          }
         ];
       };
     };
