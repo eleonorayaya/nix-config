@@ -27,6 +27,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -35,6 +39,7 @@
     , mac-app-util
     , nix-darwin
     , nixpkgs
+    , nixvim
     , nix-formatter-pack
     , nix-homebrew
     , homebrew-core
@@ -127,6 +132,7 @@
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
           mac-app-util.darwinModules.default
+          nixvim.nixDarwinModules.nixvim
 
           {
             nix-homebrew = {

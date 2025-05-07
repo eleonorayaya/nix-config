@@ -15,6 +15,13 @@
         top = "btop";
         update = "darwin-rebuild switch --flake /etc/nix-darwin";
         vim = "nvim";
+
+        # git
+        gittouch = "git pull --rebase && git commit -m 'touch' --allow-empty && git push";
+        gsu = "git status -uno";
+
+        tf = "terraform";
+        tfmt = "terraform fmt -recursive";
       };
       plugins = [
         {
@@ -40,6 +47,8 @@
           --color=marker:#babbf1,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284 \
           --color=selected-bg:#51576d \
           --color=border:#414559,label:#c6d0f5"
+
+        . ~/.dotfiles/init.zsh
       '';
     };
   };

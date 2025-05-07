@@ -61,7 +61,6 @@
     kitty
     lsd
     mkalias
-    neovim
     oh-my-posh
     ripgrep
     syncthing
