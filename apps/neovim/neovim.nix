@@ -1,4 +1,22 @@
-_: {
+_: 
+let
+  lua_files = builtins.map (name: ./lua + "/${name}")
+    (builtins.filter (name: builtins.match ".*\\.lua" name != null)
+      (builtins.attrNames (builtins.readDir ./lua)));
+
+  plugin_files = builtins.map (name: ./lua/plugins + "/${name}")
+    (builtins.filter (name: builtins.match ".*\\.lua" name != null)
+      (builtins.attrNames (builtins.readDir ./lua/plugins)));
+
+  lua_content = builtins.concatStringsSep "\n" (
+   builtins.map (filename: builtins.readFile filename) lua_files
+  );
+
+  plugin_content = builtins.concatStringsSep "\n" (
+   builtins.map (filename: builtins.readFile filename) plugin_files
+  );
+in 
+{
   programs.nixvim = {
     enable = true;
 
@@ -20,40 +38,66 @@ _: {
     };
 
     keymaps = [
+      # Comment
+      {
+        key = "<C-_>";
+        mode = "n";
+        action.__raw = "comment_toggle_line";
+      }
+      {
+        key = "<C-_>";
+        mode = "x";
+        action.__raw = "comment_toggle_selection";
+      }
+
+      # Harpoon
+      {
+        key = "<leader>a";
+        mode = "n";
+        action.__raw = "harpoon_add_file";
+      }
+      {
+        key = "<C-o>";
+        mode = "n";
+        action.__raw = "harpoon_open_telescope_marks";
+      }
+
+      # Nvim Tree
       {
         key = "<M-b>";
         mode = "n";
-        action = "<cmd>NvimTreeToggle<CR>";
+        action.__raw = "nvim_tree_toggle";
+      }
+      {
+        key = "<leader>of";
+        mode = "n";
+        action.__raw = "nvim_tree_reveal_current_file";
       }
 
       # Telescope
       {
         key = "<M-p>";
         mode = "n";
-        action .__raw= ''
-          function()          
-            local function is_git_repo()
-              vim.fn.system("git rev-parse --is-inside-work-tree")
-              return vim.v.shell_error == 0
-            end
-
-            local function get_git_root()
-              local dot_git_path = vim.fn.finddir(".git", ".;")
-              return vim.fn.fnamemodify(dot_git_path, ":h")
-            end
-
-            local opts = {}
-            if is_git_repo() then
-              opts = {
-                cwd = get_git_root(),
-              }
-            end
-
-            require("telescope.builtin").find_files(opts)
-          end
-          '';
+        action .__raw = "telescope_pick_project_files";
 
       }
+      {
+        key = "<leader>ff";
+        mode = "n";
+        action.__raw = "telescope_live_grep";
+      }
+
+      # Window Mgmt
+      {
+        key = "<M-k>";
+        mode = "n";
+        action = "<cmd>vsplit<cr>";
+      }
     ];
+
+    extraConfigLuaPre = ''
+      ${lua_content}
+      ${plugin_content}
+    '';
   };
 }
