@@ -28,22 +28,6 @@ in
       };
     };
 
-    # colorschemes.palette = {
-    #   enable = true;
-    #   
-    #   settings = {
-    #     palettes = {
-    #       main = "dark";
-    #       accent = "pastel";
-    #       state = "pastel";
-    #     };
-    #
-    #     # custom_palettes = {
-    #     #   
-    #     # };
-    #   };
-    # };
-
     keymaps = [
       # Comment
       {

@@ -46,3 +46,24 @@ To format the code, run
 ```
 nix fmt
 ```
+
+## Wallpapers
+
+ - [cozy-autumn-rain by genevievelacroix](https://www.genevievelacroix.com/)
+ - [miami-vibes by genevievelacroix](https://www.genevievelacroix.com/)
+ - [night-ramen-shop by endlesstakeout](https://www.endlesstakeout.com/)
+
+
+## Docs Links
+ - [Nix Packages](https://search.nixos.org/packages)
+
+### Neovim
+ - [Nixvim Docs](https://nix-community.github.io/nixvim/)
+ - [Nixvim Github](https://github.com/nix-community/nixvim/blob/nixos-24.11/)
+
+#### Autosession
+ - [Github](https://github.com/rmagatti/auto-session/)
+
+#### Harpoon
+ - [Github](https://github.com/ThePrimeagen/harpoon/tree/harpoon2)
+ - [Nixvim github](https://github.com/nix-community/nixvim/blob/nixos-24.11/plugins/by-name/harpoon/default.nix)
