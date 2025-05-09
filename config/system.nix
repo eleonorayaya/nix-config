@@ -1,4 +1,11 @@
-{ pkgs, self, ... }: {
+{ pkgs, self, ... }: 
+let
+  wallpaper_dir = "${self}/theme/wallpaper";
+  cozy_autumn = "${wallpaper_dir}/cozy-autumn-rain.png";
+  miami_vibes = "${wallpaper_dir}/miami-vibes.jpg";
+  night_ramen = "${wallpaper_dir}/night-ramen-shop.jpg";
+in
+{
   fonts.packages = with pkgs; [
     dejavu_fonts
     font-awesome
@@ -13,7 +20,7 @@
     stateVersion = 5;
 
     activationScripts.postUserActivation.text = ''
-      /usr/local/bin/desktoppr ${self}/theme/wallpaper/cozy-autumn-rain.png
+      /usr/local/bin/desktoppr ${night_ramen}
 
       # (Workaround) install mas manually
       # ${self}/scripts/manage-mas.sh

@@ -127,6 +127,15 @@
             };
           }
 
+           {
+              nixpkgs.overlays = [
+                (self: super: {
+                  #nixfmt-latest = nixfmt.packages."x86_64-darwin".nixfmt;
+                  nodejs = super.nodejs_22;
+                })
+              ];
+           }
+
           ./config/default.nix
 
           home-manager.darwinModules.home-manager

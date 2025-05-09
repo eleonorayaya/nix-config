@@ -1,41 +1,48 @@
-_: 
+_:
 let
-  lua_files = builtins.map (name: ./lua + "/${name}")
-    (builtins.filter (name: builtins.match ".*\\.lua" name != null)
-      (builtins.attrNames (builtins.readDir ./lua)));
+  helpers = import ../../lib/helpers.nix;
+  plugin_nix_files = helpers.filter_ls ./plugins "nix";
 
-  plugin_files = builtins.map (name: ./lua/plugins + "/${name}")
-    (builtins.filter (name: builtins.match ".*\\.lua" name != null)
-      (builtins.attrNames (builtins.readDir ./lua/plugins)));
-
-  lua_content = builtins.concatStringsSep "\n" (
-   builtins.map (filename: builtins.readFile filename) lua_files
-  );
-
-  plugin_content = builtins.concatStringsSep "\n" (
-   builtins.map (filename: builtins.readFile filename) plugin_files
-  );
-in 
+  config_lua_content = helpers.concat_ls ./lua "lua";
+  plugin_lua_content = helpers.concat_ls ./lua/plugins "lua";
+in
 {
   programs.nixvim = {
     enable = true;
 
     globals.mapleader = " ";
 
-    imports = builtins.map (name: ./plugins + "/${name}")
-      (builtins.filter (name: builtins.match ".*\\.nix" name != null)
-        (builtins.attrNames (builtins.readDir ./plugins)));
+    imports = [
+      ./options.nix
+    ] ++ plugin_nix_files;
 
     colorschemes.catppuccin = {
       enable = true;
       settings = {
         flavour = "frappe";
+        transparent_background = true;
 
         integrations = {
           nvimtree = true;
         };
       };
     };
+
+    # colorschemes.palette = {
+    #   enable = true;
+    #   
+    #   settings = {
+    #     palettes = {
+    #       main = "dark";
+    #       accent = "pastel";
+    #       state = "pastel";
+    #     };
+    #
+    #     # custom_palettes = {
+    #     #   
+    #     # };
+    #   };
+    # };
 
     keymaps = [
       # Comment
@@ -96,8 +103,8 @@ in
     ];
 
     extraConfigLuaPre = ''
-      ${lua_content}
-      ${plugin_content}
+      ${config_lua_content}
+      ${plugin_lua_content}
     '';
   };
 }

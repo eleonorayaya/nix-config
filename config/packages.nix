@@ -20,9 +20,9 @@
     nil
 
     # Node.js Development
-    # nodePackages.npm
+    nodePackages.npm
     # nodePackages.prettier
-    # nodejs
+    nodejs
 
     # Python Development
     # python3

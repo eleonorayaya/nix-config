@@ -15,8 +15,8 @@
         settings = {
           scrollback_lines = 10000;
           enable_audio_bell = false;
-          background_opacity = 0.75;
-          background_blur = 64;
+          background_opacity = 0.25;
+          background_blur = 32;
           window_padding_width = 20;
           hide_window_decorations = "titlebar-only";
 
