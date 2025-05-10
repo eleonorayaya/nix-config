@@ -15,7 +15,7 @@
         settings = {
           scrollback_lines = 10000;
           enable_audio_bell = false;
-          background_opacity = 0.40;
+          background_opacity = 0.75;
           background_blur = 48;
           window_padding_width = 20;
           hide_window_decorations = "titlebar-only";
@@ -25,7 +25,7 @@
 
           # cursor
           cursor_shape = "underline";
-          cursor_trail = 4;
+          cursor_trail = 0;
           cursor_blink_interval = 0;
 
           # tabs
