@@ -7,6 +7,7 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     nix-formatter-pack = {
+      # use by running `nix fmt`
       url = "github:Gerschtli/nix-formatter-pack";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -18,6 +19,18 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,7 +39,11 @@
     , mac-app-util
     , nix-darwin
     , nixpkgs
+    , nixvim
     , nix-formatter-pack
+    , nix-homebrew
+    , homebrew-core
+    , homebrew-cask
     , ...
     }:
     let
@@ -44,7 +61,11 @@
         homeDirectory = "/Users/eleonora";
       };
 
-      theme = { };
+      theme = builtins.fromJSON (builtins.readFile ./theme/catppuccin/frappe.json);
+      
+      uiconfig = {
+        statusBarHeight = 38;
+      };
 
       configuration = { pkgs, ... }: {
         networking = {
@@ -98,6 +119,7 @@
             statix.enable = true;
           };
         });
+
       darwinConfigurations.${host.name} = nix-darwin.lib.darwinSystem {
         modules = [
           configuration
@@ -105,14 +127,45 @@
           # Pass variables to other modules
           {
             _module.args = {
-              inherit user host self theme;
+              inherit user host self theme uiconfig;
             };
           }
+
+           {
+              nixpkgs.overlays = [
+                (self: super: {
+                  #nixfmt-latest = nixfmt.packages."x86_64-darwin".nixfmt;
+                  nodejs = super.nodejs_22;
+                })
+              ];
+           }
 
           ./config/default.nix
 
           home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
           mac-app-util.darwinModules.default
+          nixvim.nixDarwinModules.nixvim
+
+          {
+            nix-homebrew = {
+              enable = true;
+
+              # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+              enableRosetta = false;
+
+              user = user.username;
+
+              taps = {
+                "homebrew/homebrew-core" = homebrew-core;
+                "homebrew/homebrew-cask" = homebrew-cask;
+                # "homebrew/homebrew-bundle" = homebrew-bundle;
+              };
+
+              mutableTaps = false;
+              autoMigrate = true;
+            };
+          }
         ];
       };
     };
