@@ -2,7 +2,7 @@
 set -x
 
 bar=(
-  height=38
+  height="${BAR_HEIGHT}"
   position=top
   padding_left=16
   padding_right=16

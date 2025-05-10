@@ -1,5 +1,6 @@
 {
- plugins = {
+  # TODO: fix tab to complete 
+  plugins = {
     luasnip.enable = true;
     # copilot-lua = {
     #   enable = true;

@@ -1,5 +1,6 @@
 { pkgs
 , theme
+, uiconfig
 , ...
 }:
 let
@@ -58,6 +59,7 @@ in
         export THEME_TEXT="${theme.text}"
         export THEME_PINK="${theme.pink}"
         export THEME_SURFACE1="${theme.surface1}"
+        export BAR_HEIGHT=${builtins.toString uiconfig.statusBarHeight}
         sketchybarrc
       '';
       extraPackages = [

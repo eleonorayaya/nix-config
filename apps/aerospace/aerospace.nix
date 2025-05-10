@@ -1,7 +1,12 @@
-{ pkgs, ... }:
+{ pkgs
+, uiconfig
+, ... 
+}:
 let
   sb = "${pkgs.sketchybar}/bin/sketchybar";
   trigger-workspace-change = "${sb} --trigger aerospace_workspace_change";
+
+  defaultWindowMargin = 72;
 in
 {
   services.aerospace = {
@@ -10,10 +15,10 @@ in
       gaps = {
         inner.horizontal = 6;
         inner.vertical = 6;
-        outer.left = 6;
-        outer.bottom = 6;
-        outer.top = 6;
-        outer.right = 6;
+        outer.left = defaultWindowMargin;
+        outer.bottom = defaultWindowMargin;
+        outer.top = uiconfig.statusBarHeight + defaultWindowMargin;
+        outer.right = defaultWindowMargin;
       };
 
       mode.main.binding = {

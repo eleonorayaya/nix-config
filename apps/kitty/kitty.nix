@@ -10,13 +10,13 @@
         enable = true;
         font = {
           name = "JetBrainsMono Nerd Font";
-          size = 16.0;
+          size = 18.0;
         };
         settings = {
           scrollback_lines = 10000;
           enable_audio_bell = false;
-          background_opacity = 0.25;
-          background_blur = 32;
+          background_opacity = 0.40;
+          background_blur = 48;
           window_padding_width = 20;
           hide_window_decorations = "titlebar-only";
 

@@ -1,4 +1,4 @@
-function _G.telescope_pick_project_files()          
+function _G.telescope_pick_project_files()
   local opts = {}
 
   if is_git_repo() then

@@ -1,4 +1,5 @@
 {
+  # TODO: enable deleting marks w/o confirmation
   plugins = {
     harpoon = {
       enable = true;

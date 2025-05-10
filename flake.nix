@@ -62,6 +62,10 @@
       };
 
       theme = builtins.fromJSON (builtins.readFile ./theme/catppuccin/frappe.json);
+      
+      uiconfig = {
+        statusBarHeight = 38;
+      };
 
       configuration = { pkgs, ... }: {
         networking = {
@@ -123,7 +127,7 @@
           # Pass variables to other modules
           {
             _module.args = {
-              inherit user host self theme;
+              inherit user host self theme uiconfig;
             };
           }
 
