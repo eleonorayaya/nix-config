@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 let
   filter_ls = path: ext: (
     builtins.map (name: path + "/${name}") (
@@ -14,8 +15,23 @@ let
       )
     )
   );
+
+  attrs_to_env_vars = attrs: (
+    pkgs.lib.strings.concatLines (
+      map
+        (key:
+          let
+            val = attrs."${key}";
+            strVal = builtins.toString val;
+          in
+          ''export ${key}="${strVal }"''
+        )
+        (builtins.attrNames attrs)
+    )
+  );
 in
 {
-  filter_ls = filter_ls;  
-  concat_ls  = concat_ls;
+  inherit attrs_to_env_vars;
+  inherit concat_ls;
+  inherit filter_ls;
 }

@@ -17,8 +17,8 @@ fi
 # Always show workspace items, but style them differently
 if [ -n "${FOCUSED}" ] || [[ -n $(aerospace list-windows --workspace "${SID}") ]]; then
   # Workspace is focused or has windows - make it more visible
-  sketchybar --animate circ 5 --set "${NAME}" label.color=0xffcdd6f4 drawing=on background.border_width=2
+  sketchybar --animate circ 5 --set "${NAME}" label.color="$ACTIVE_WORKSPACE_COLOR" drawing=on background.border_width=2
 else
   # Empty workspace - still visible but dimmed
-  sketchybar --animate circ 5 --set "${NAME}" label.color=0xff6c7086 drawing=on background.border_width=0
+  sketchybar --animate circ 5 --set "${NAME}" label.color="$EMPTY_WORKSPACE_COLOR" drawing=on background.border_width=0
 fi

@@ -9,7 +9,7 @@
       programs.kitty = {
         enable = true;
         font = {
-          name = "JetBrainsMono Nerd Font";
+          name = "Liga SFMono Nerd Font";
           size = 18.0;
         };
         settings = {
@@ -51,10 +51,10 @@
         themeFile = "catppuccin-frappe";
         extraConfig = ''
           # Enable ligatures
-          font_features JetBrainsMonoNerdFontComplete-Regular +liga +calt
-          font_features JetBrainsMonoNerdFontComplete-Bold +liga +calt
-          font_features JetBrainsMonoNerdFontComplete-Italic +liga +calt
-          font_features JetBrainsMonoNerdFontComplete-BoldItalic +liga +calt
+          font_features SFMono-Nerd-Font-Ligaturized-Regular +liga +calt
+          font_features SFMono-Nerd-Font-Ligaturized-Bold +liga +calt
+          font_features SFMono-Nerd-Font-Ligaturized-Italic +liga +calt
+          font_features SFMono-Nerd-Font-Ligaturized-BoldItalic +liga +calt
         '';
       };
 

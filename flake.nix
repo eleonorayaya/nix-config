@@ -31,6 +31,10 @@
       url = "github:nix-community/nixvim/nixos-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sf-mono-liga-src = {
+      url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
+      flake = false;
+    };
   };
 
   outputs =
@@ -44,6 +48,7 @@
     , nix-homebrew
     , homebrew-core
     , homebrew-cask
+    , sf-mono-liga-src
     , ...
     }:
     let
@@ -62,10 +67,7 @@
       };
 
       theme = builtins.fromJSON (builtins.readFile ./theme/catppuccin/frappe.json);
-      
-      uiconfig = {
-        statusBarHeight = 38;
-      };
+      globalStyles = import ./config/styles.nix;
 
       configuration = { pkgs, ... }: {
         networking = {
@@ -127,18 +129,30 @@
           # Pass variables to other modules
           {
             _module.args = {
-              inherit user host self theme uiconfig;
+              inherit user host self globalStyles theme;
             };
           }
 
-           {
-              nixpkgs.overlays = [
-                (self: super: {
-                  #nixfmt-latest = nixfmt.packages."x86_64-darwin".nixfmt;
-                  nodejs = super.nodejs_22;
-                })
-              ];
-           }
+          {
+            nixpkgs.overlays = [
+              (_self: super: {
+                #nixfmt-latest = nixfmt.packages."x86_64-darwin".nixfmt;
+                nodejs = super.nodejs_22;
+              })
+              (_final: prev: {
+                sf-mono-liga-bin = prev.stdenvNoCC.mkDerivation {
+                  pname = "sf-mono-liga-bin";
+                  version = "dev";
+                  src = sf-mono-liga-src;
+                  dontConfigure = true;
+                  installPhase = ''
+                    mkdir -p $out/share/fonts/opentype
+                    cp -R $src/*.otf $out/share/fonts/opentype/
+                  '';
+                };
+              })
+            ];
+          }
 
           ./config/default.nix
 
