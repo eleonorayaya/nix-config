@@ -1,8 +1,6 @@
-{ pkgs, self, ... }: 
+{ pkgs, self, ... }:
 let
   wallpaper_dir = "${self}/theme/wallpaper";
-  cozy_autumn = "${wallpaper_dir}/cozy-autumn-rain.png";
-  miami_vibes = "${wallpaper_dir}/miami-vibes.jpg";
   night_ramen = "${wallpaper_dir}/night-ramen-shop.jpg";
 in
 {
@@ -12,6 +10,8 @@ in
     hack-font
     noto-fonts
     noto-fonts-emoji
+    sf-mono-liga-bin
+    sketchybar-app-font
   ];
 
 

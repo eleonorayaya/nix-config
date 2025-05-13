@@ -17,6 +17,7 @@ _: {
     casks = [
       # Security
       "protonvpn"
+      "sf-symbols"
 
       # System Configuration
       "desktoppr"

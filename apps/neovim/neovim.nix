@@ -1,6 +1,8 @@
-_:
+{ pkgs
+, ...
+}:
 let
-  helpers = import ../../lib/helpers.nix;
+  helpers = import ../../lib/helpers.nix { inherit pkgs; };
   plugin_nix_files = helpers.filter_ls ./plugins "nix";
 
   config_lua_content = helpers.concat_ls ./lua "lua";
