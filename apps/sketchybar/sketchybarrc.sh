@@ -18,7 +18,7 @@ bar=(
 )
 
 default=(
-  icon.font="$FONT:Regular:18"
+  icon.font="$ICON_FONT:Regular:18"
   icon.color="$ICON_COLOR"
   icon.highlight_color="$ICON_HIGHLIGHT_COLOR"
   icon.padding_left="$PADDINGS"

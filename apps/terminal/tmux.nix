@@ -64,6 +64,7 @@
 
         bind-key -r -T prefix p  display-popup -E "tms switch"
         bind-key -r -T prefix P  display-popup -E "tms"
+        bind-key -r -T prefix C-p pipe-pane -o 'cat >>~/output.#I-#P'
 
         set-option -g default-command "${pkgs.zsh}/bin/zsh"
       '';
