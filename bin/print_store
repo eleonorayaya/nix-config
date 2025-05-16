@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+nix-store -q --graph /run/current-system

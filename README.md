@@ -67,3 +67,19 @@ nix fmt
 #### Harpoon
  - [Github](https://github.com/ThePrimeagen/harpoon/tree/harpoon2)
  - [Nixvim github](https://github.com/nix-community/nixvim/blob/nixos-24.11/plugins/by-name/harpoon/default.nix)
+
+
+## Debugging
+
+### Sketchybar
+
+To see sketchybar logs run
+```
+sudo launchctl debug gui/501/org.nixos.sketchybar --stdout --stderr
+```
+
+then in a separate terminal window restart sketchybar with 
+
+```
+sudo launchctl kill 9 gui/501/org.nixos.sketchybar
+```

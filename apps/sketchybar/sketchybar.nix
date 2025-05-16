@@ -79,9 +79,10 @@ let
   };
   
   sfMono = "Liga SFMono Nerd Font";
+  sfPro = "SF Pro Display";
 
   styles = {
-    FONT=sfMono;
+    FONT=sfPro;
     POPUP_BORDER_WIDTH = 2;
     POPUP_CORNER_RADIUS = 11;
 

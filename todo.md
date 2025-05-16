@@ -8,5 +8,6 @@
 ### Theme
  - [catppuccin custom themes](https://github.com/catppuccin/nvim/discussions/323)
 
-### Sketchybar
- - [sf mono nerd font](https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized?tab=readme-ov-file)
+### Zsh
+ - [Rebind command suggestions](https://nixos.wiki/wiki/Zsh#Zsh-autocomplete_not_working)
+

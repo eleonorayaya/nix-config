@@ -1,44 +1,62 @@
 #!/usr/bin/env bash
 
+set -x
+set -e
+
 declare -A SPACE_ICONS=(
   ["1"]="$HOME_ICON"
   ["2"]="$BROWSER_ICON"
   ["3"]="$DISCORD_ICON"
-  ["4"]="4" 
   ["5"]="$OBSIDIAN_ICON"
-  ["6"]="6"
-  ["7"]="7"
   ["8"]="$MAIL_ICON" 
   ["T"]="$TERMINAL_ICON"
 )
 
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_workspace_monitor_change
 
 FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused)"
 
-for sid in $(aerospace list-workspaces --all); do
-  if [ -z "${SPACE_ICONS["${sid}"]}" ]; then
-    continue
-  fi
+draw_space_icons() {
+  display=$1
+  echo "Drawing space icons for ${display}"
 
-  workspace=(
-    label.drawing=off
-    # display=1
-    icon="${SPACE_ICONS["${sid}"]}" 
-    icon.padding_left=8
-    icon.padding_right=8
-    icon.background.drawing=off
+  for sid in $(aerospace list-workspaces --monitor "$display"); do
+    echo "trying to draw ${sid}"
 
-    click_script="aerospace workspace ${sid}" 
-    script="plugin_aerospace ${sid}"
-  ) 
+    if [[ ! -v SPACE_ICONS[$sid] ]]; then 
+      continue
+    fi
 
-  sketchybar --add item "space.${sid}" left \
-    --subscribe "space.${sid}" aerospace_workspace_change \
-    --set "space.${sid}" "${workspace[@]}" 
+    if [[ -z "${SPACE_ICONS[$sid]}" ]]; then
+      echo "skipping ${sid}"
+    else  
+      echo "drawing ${sid}"
 
-    FOCUSED_WORKSPACE="$FOCUSED_WORKSPACE" NAME="space.${sid}" plugin_aerospace "${sid}" &
-done
+      workspace=(
+        label.drawing=off
+        display="${display}"
+        icon="${SPACE_ICONS[$sid]}" 
+        icon.padding_left=8
+        icon.padding_right=8
+        icon.background.drawing=off
+        click_script="aerospace workspace ${sid}" 
+        script="ACTIVE_WORKSPACE_COLOR=$ACTIVE_WORKSPACE_COLOR EMPTY_WORKSPACE_COLOR=$EMPTY_WORKSPACE_COLOR plugin_aerospace ${sid}"
+      ) 
+
+      sketchybar --add item "space.${sid}" left \
+        --subscribe "space.${sid}" aerospace_workspace_change \
+        --subscribe "space.${sid}" aerospace_workspace_monitor_change \
+        --set "space.${sid}" "${workspace[@]}" 
+
+      ACTIVE_WORKSPACE_COLOR="$ACTIVE_WORKSPACE_COLOR" FOCUSED_WORKSPACE="$FOCUSED_WORKSPACE" NAME="space.${sid}" plugin_aerospace "${sid}" &
+    fi
+
+  done
+}
+
+draw_space_icons 1
+draw_space_icons 2
 
 wrapper=(
   background.color="$SPACES_WRAPPER_BACKGROUND"
