@@ -3,10 +3,10 @@
 }:
 let
   helpers = import ../../lib/helpers.nix { inherit pkgs; };
-  plugin_nix_files = helpers.filter_ls ./plugins "nix";
+  plugin_nix_files = helpers.filterLs ./plugins "nix";
 
-  config_lua_content = helpers.concat_ls ./lua "lua";
-  plugin_lua_content = helpers.concat_ls ./lua/plugins "lua";
+  config_lua_content = helpers.concatLs ./lua "lua";
+  plugin_lua_content = helpers.concatLs ./lua/plugins "lua";
 in
 {
   programs.nixvim = {

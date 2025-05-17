@@ -4,7 +4,7 @@
 let
   helpers = import ../lib/helpers.nix { inherit pkgs; };
 
-  terminal_apps = helpers.filter_ls ./terminal "nix";
+  terminal_apps = helpers.filterLs ./terminal "nix";
 in
 {
   imports = [
