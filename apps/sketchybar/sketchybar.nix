@@ -1,7 +1,6 @@
 { self
 , pkgs
-, globalStyles
-, theme
+, styles
 , ...
 }:
 let
@@ -37,9 +36,9 @@ let
       builtins.attrNames (builtins.readDir ./items)
     );
 
-  itemNames = pkgs.lib.traceVal (pkgs.lib.strings.concatLines (
+  itemNames = pkgs.lib.strings.concatLines (
     builtins.map (item: item.name) items
-  ));
+  );
 
   rc = pkgs.writeShellApplication rec {
     name = "sketchybarrc";
@@ -54,95 +53,68 @@ let
     runtimeInputs = derivationArgs.buildInputs;
   };
 
-  hexTheme = builtins.listToAttrs (map
-    (
-      key: {
-        name = key;
-        value = "0xff${theme."${key}"}";
-      }
-    )
-    (builtins.attrNames theme));
-
-  colors = {
-    BLACK = "0xff181926";
-    WHITE = "0xffcad3f5";
-    RED = "0xffed8796";
-    GREEN = "0xffa6da95";
-    BLUE = "0xff8aadf4";
-    YELLOW = "0xffeed49f";
-    ORANGE = "0xfff5a97f";
-    MAGENTA = "0xffc6a0f6";
-    GREY = "0xff939ab7";
-    DARK_GREY = "0xcc24273a";
-    TRANSPARENT = "0x00000000";
-    SPOTIFY_GREEN = "0xff1db954";
-  };
-  
   sfMono = "Liga SFMono Nerd Font";
   sfPro = "SF Pro Display";
 
-  styles = {
-    FONT=sfPro;
+  barStyles = {
+    FONT = sfPro;
     POPUP_BORDER_WIDTH = 2;
     POPUP_CORNER_RADIUS = 11;
 
-    ICON_COLOR = colors.WHITE;
-    ICON_FONT=sfMono;
-    ICON_HIGHLIGHT_COLOR = colors.MAGENTA;
-    LABEL_COLOR = colors.WHITE;
-    LABEL_HIGHLIGHT_COLOR = colors.MAGENTA;
+    ICON_COLOR = styles.hexColors.text;
+    ICON_FONT = sfMono;
+    ICON_HIGHLIGHT_COLOR = styles.hexColors.textHighlight;
+    LABEL_COLOR = styles.hexColors.text;
+    LABEL_HIGHLIGHT_COLOR = styles.hexColors.textHighlight;
 
-    POPUP_BACKGROUND_COLOR = colors.BLACK;
-    POPUP_BORDER_COLOR = colors.GREEN;
+    POPUP_BACKGROUND_COLOR = styles.hexColors.overlay0;
+    POPUP_BORDER_COLOR = styles.hexColors.overlay1;
 
-    SHADOW_COLOR = colors.BLACK;
-    ACTIVE_WORKSPACE_COLOR = colors.WHITE;
-    EMPTY_WORKSPACE_COLOR = colors.GREY;
+    SHADOW_COLOR = styles.hexColors.surface2;
+    ACTIVE_WORKSPACE_COLOR = styles.hexColors.workspaceActive;
 
-    BAR_COLOR = hexTheme.surface0;
+    BAR_COLOR = styles.hexColors.surface0;
     BAR_CORNER_RADIUS = 9;
-    BAR_HEIGHT = globalStyles.statusBarHeight;
-    BAR_MARGIN = globalStyles.screenMarginX;
+    BAR_HEIGHT = styles.statusBarHeight;
+    BAR_MARGIN = styles.screenMarginX;
     BAR_PADDING_X = 16;
-    BAR_TOP_OFFSET = globalStyles.screenMarginTop;
+    BAR_TOP_OFFSET = styles.screenMarginTop;
 
-    SPACES_WRAPPER_BACKGROUND = hexTheme.surface1;
-    SPACES_ITEM_BACKGROUND = hexTheme.surface2;
+    SPACES_WRAPPER_BACKGROUND = styles.hexColors.surface1;
+    SPACES_ITEM_BACKGROUND = styles.hexColors.surface2;
   };
 
   icons = import ./icons.nix;
   barIcons = {
-    HERO_ICON=icons.GHOST;
-    HOME_ICON=icons.HOME;
-    BROWSER_ICON=icons.IE;
-    DISCORD_ICON=icons.DISCORD;
-    OBSIDIAN_ICON=icons.NOTES_2;
-    MAIL_ICON=icons.MAIL_2;
-    TERMINAL_ICON=icons.TERMINAL_2;
-    PREFERENCES_ICON=icons.PREFERENCES;
-    ACTIVITY_ICON=icons.BOMB;
-    LOCK_ICON=icons.LOCK;
+    HERO_ICON = icons.GHOST;
+    HOME_ICON = icons.HOME;
+    BROWSER_ICON = icons.IE;
+    DISCORD_ICON = icons.DISCORD;
+    OBSIDIAN_ICON = icons.NOTES_2;
+    MAIL_ICON = icons.MAIL_2;
+    TERMINAL_ICON = icons.TERMINAL_2;
+    PREFERENCES_ICON = icons.PREFERENCES;
+    ACTIVITY_ICON = icons.BOMB;
+    LOCK_ICON = icons.LOCK;
   };
 
-    envVars = pkgs.lib.traceVal (
-      helpers.attrs_to_env_vars (
-        colors // styles // barIcons
-      )
-    );
-    in
-    {
-    config = {
-      services.sketchybar = {
-        enable = true;
-        config = ''
-          ${envVars}
-          sketchybarrc
-          ${itemNames}
-        '';
-        extraPackages = [
-          pkgs.gnugrep
-          rc
-        ] ++ plugins ++ items;
-      };
+  envVars = helpers.attrs_to_env_vars (
+    barStyles // barIcons
+  );
+in
+{
+  config = {
+    services.sketchybar = {
+      enable = true;
+      config = ''
+        ${envVars}
+        sketchybarrc
+        ${itemNames}
+      '';
+      extraPackages = [
+        pkgs.gnugrep
+        rc
+      ] ++ plugins ++ items;
     };
-  }
+  };
+}
