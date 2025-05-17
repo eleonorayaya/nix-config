@@ -7,7 +7,7 @@ let
       )
     )
   );
-  
+
   concat_ls = path: ext: (
     builtins.concatStringsSep "\n" (
       builtins.map (filename: builtins.readFile filename) (
@@ -29,9 +29,14 @@ let
         (builtins.attrNames attrs)
     )
   );
+
+  colorToHexWithOpacity = color: opacity: "0x${opacity}${color}";
+  colorToHex = color: (colorToHexWithOpacity color "ff");
 in
 {
   inherit attrs_to_env_vars;
+  inherit colorToHex;
+  inherit colorToHexWithOpacity;
   inherit concat_ls;
   inherit filter_ls;
 }

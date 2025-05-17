@@ -66,8 +66,7 @@
         homeDirectory = "/Users/eleonora";
       };
 
-      theme = builtins.fromJSON (builtins.readFile ./theme/catppuccin/frappe.json);
-      globalStyles = import ./config/styles.nix;
+      styles = import ./config/styles.nix { pkgs = nixpkgs; inherit self; };
 
       configuration = { pkgs, ... }: {
         networking = {
@@ -129,7 +128,7 @@
           # Pass variables to other modules
           {
             _module.args = {
-              inherit user host self globalStyles theme;
+              inherit user host self styles;
             };
           }
 

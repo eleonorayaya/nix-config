@@ -24,7 +24,7 @@ default=(
   icon.padding_left="$PADDINGS"
   icon.padding_right="$PADDINGS"
 
-  label.font="$FONT:Thin:14.0"
+  label.font="$FONT:Thin:16.0"
   label.color="$LABEL_COLOR"
   label.highlight_color="$LABEL_HIGHLIGHT_COLOR"
   label.padding_left="$PADDINGS"

@@ -37,11 +37,12 @@ draw_space_icons() {
         label.drawing=off
         display="${display}"
         icon="${SPACE_ICONS[$sid]}" 
+        icon.highlight_color="$ACTIVE_WORKSPACE_COLOR"
         icon.padding_left=8
         icon.padding_right=8
         icon.background.drawing=off
         click_script="aerospace workspace ${sid}" 
-        script="ACTIVE_WORKSPACE_COLOR=$ACTIVE_WORKSPACE_COLOR EMPTY_WORKSPACE_COLOR=$EMPTY_WORKSPACE_COLOR plugin_aerospace ${sid}"
+        script="plugin_aerospace ${sid}"
       ) 
 
       sketchybar --add item "space.${sid}" left \
@@ -49,7 +50,7 @@ draw_space_icons() {
         --subscribe "space.${sid}" aerospace_workspace_monitor_change \
         --set "space.${sid}" "${workspace[@]}" 
 
-      ACTIVE_WORKSPACE_COLOR="$ACTIVE_WORKSPACE_COLOR" FOCUSED_WORKSPACE="$FOCUSED_WORKSPACE" NAME="space.${sid}" plugin_aerospace "${sid}" &
+      FOCUSED_WORKSPACE="$FOCUSED_WORKSPACE" NAME="space.${sid}" plugin_aerospace "${sid}" &
     fi
 
   done

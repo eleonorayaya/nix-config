@@ -7,8 +7,6 @@ apple_logo=(
   icon="$HERO_ICON"
   icon.padding_left=4
   icon.padding_right=16
-  icon.font="$FONT:Regular:18"
-  icon.color="$WHITE"
   icon.drawing=on
 
   label.drawing=off

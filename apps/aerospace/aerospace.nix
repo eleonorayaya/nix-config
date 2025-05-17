@@ -1,5 +1,5 @@
 { pkgs
-, globalStyles
+, styles
 , ...
 }:
 let
@@ -31,12 +31,12 @@ in
     enable = true;
     settings = {
       gaps = {
-        inner.horizontal = globalStyles.windowMargin;
-        inner.vertical = globalStyles.windowMargin;
-        outer.left = globalStyles.screenMarginX;
-        outer.bottom = globalStyles.screenMarginBot;
-        outer.top = globalStyles.screenMarginTop + globalStyles.statusBarHeight + globalStyles.statusBarMarginBot;
-        outer.right = globalStyles.screenMarginX;
+        inner.horizontal = styles.windowMargin;
+        inner.vertical = styles.windowMargin;
+        outer.left = styles.screenMarginX;
+        outer.bottom = styles.screenMarginBot;
+        outer.top = styles.screenMarginTop + styles.statusBarHeight + styles.statusBarMarginBot;
+        outer.right = styles.screenMarginX;
       };
 
       mode.main.binding = {
@@ -57,7 +57,7 @@ in
 
         # Unused
         "4" = "main";
-        
+
         # Notes
         "5" = [
           "secondary"
