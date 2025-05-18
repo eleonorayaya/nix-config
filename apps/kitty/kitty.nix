@@ -1,10 +1,38 @@
 { user
 , pkgs
 , ...
-}: {
+}:
+let
+  themes = [
+    {
+      name = "catppuccin-frappe";
+      url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/frappe.conf";
+      hash = "sha256-boYuT8Ptiy1598hptuKX88lKOIbixOAwCvGX6ln92iQ=";
+    }
+    {
+      name = "rose-pine-moon";
+      url = "https://raw.githubusercontent.com/rose-pine/kitty/refs/heads/main/dist/rose-pine-moon.conf";
+      hash = "sha256-ivIvhG2/duKfUXeJqcYfGnlKzpR5bxhV0+R3FT6AF64=";
+    }
+  ];
+
+  themeFileMap = builtins.listToAttrs (builtins.map
+    (theme: {
+      name = ".config/kitty/themes/${theme.name}.conf";
+      value = {
+        source = pkgs.fetchurl {
+          inherit (theme) url;
+          inherit (theme) hash;
+        };
+      };
+    })
+    themes);
+
+  selectedTheme = "rose-pine-moon";
+in
+{
   config = {
     home-manager.users.${user.username} = {
-      home.file = { };
       programs.kitty = {
         enable = true;
         font = {
@@ -47,7 +75,7 @@
         keybindings = {
           "cmd+k" = "";
         };
-        themeFile = "catppuccin-frappe";
+        themeFile = selectedTheme;
         extraConfig = ''
           # Enable ligatures
           font_features SFMono-Nerd-Font-Ligaturized-Regular +liga +calt
@@ -57,14 +85,7 @@
         '';
       };
 
-      home.file = {
-        ".config/kitty/themes/catppuccin-frappe.conf" = {
-          source = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/frappe.conf";
-            hash = "sha256-boYuT8Ptiy1598hptuKX88lKOIbixOAwCvGX6ln92iQ=";
-          };
-        };
-      };
+      home.file = themeFileMap;
     };
   };
 }

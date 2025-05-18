@@ -3,8 +3,6 @@
 , ...
 }:
 let
-  theme = builtins.fromJSON (builtins.readFile "${self}/theme/catppuccin/frappe.json");
-
   helpers = import ../lib/helpers.nix { inherit pkgs; };
 
   mapColors = colorAttrs: opacity: (
@@ -18,26 +16,39 @@ let
       (builtins.attrNames colorAttrs))
   );
 
-  colors = {
-    inherit (theme) text;
+  buildTheme = themeFile: colorMapFunc:
+    let
+      themeContent = builtins.fromJSON (builtins.readFile "${self}/theme/${themeFile}");
 
-    inherit (theme) overlay0;
-    inherit (theme) overlay1;
-    inherit (theme) overlay2;
+      themeColors = colorMapFunc themeContent;
+      themeHexColors = mapColors themeColors "ff";
+      themeHexColors50 = mapColors themeColors "88";
+      themeHexColors25 = mapColors themeColors "44";
+    in
+    {
+      colors = themeColors;
+      hexColors = themeHexColors;
+      hexColors50 = themeHexColors50;
+      hexColors25 = themeHexColors25;
+    };
 
-    inherit (theme) surface0;
-    inherit (theme) surface1;
-    inherit (theme) surface2;
+  catppuccinFrappe = buildTheme "catppuccin/frappe.json" (themeContent: {
+    inherit (themeContent) text;
 
-    textHighlight = theme.lavender;
-    workspaceActive = theme.flamingo;
-    workspaceInactive = theme.overlay0;
-  };
+    inherit (themeContent) overlay0;
+    inherit (themeContent) overlay1;
+    inherit (themeContent) overlay2;
 
-  hexColors = mapColors colors "ff";
-  hexColors50 = mapColors colors "88";
-  hexColors25 = mapColors colors "44";
+    inherit (themeContent) surface0;
+    inherit (themeContent) surface1;
+    inherit (themeContent) surface2;
 
+    textHighlight = themeContent.lavender;
+    workspaceActive = themeContent.flamingo;
+    workspaceInactive = themeContent.overlay0;
+  });
+
+  selectedTheme = catppuccinFrappe;
 in
 {
   # Status Bar
@@ -50,8 +61,8 @@ in
   # Windows
   windowMargin = 16;
 
-  inherit colors;
-  inherit hexColors;
-  inherit hexColors50;
-  inherit hexColors25;
+  inherit (selectedTheme) colors;
+  inherit (selectedTheme) hexColors;
+  inherit (selectedTheme) hexColors50;
+  inherit (selectedTheme) hexColors25;
 } 
