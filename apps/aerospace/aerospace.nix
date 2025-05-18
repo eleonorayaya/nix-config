@@ -4,8 +4,8 @@
 }:
 let
   sb = "${pkgs.sketchybar}/bin/sketchybar";
-  trigger-workspace-change = "${sb} --trigger aerospace_workspace_change";
-  trigger-workspace-monitor-change = "${sb} --trigger aerospace_workspace_monitor_change";
+  triggerWorkspaceChange = "${sb} --trigger aerospace_workspace_change";
+  triggerWorkspaceMonitorChange = "${sb} --trigger aerospace_workspace_monitor_change";
 
   bindings = {
     alt-q = [ "mode main" "workspace 1" ];
@@ -20,7 +20,7 @@ let
     alt-tab = "workspace-back-and-forth";
     alt-shift-tab = [
       "move-workspace-to-monitor --wrap-around next"
-      "exec-and-forget ${trigger-workspace-monitor-change}"
+      "exec-and-forget ${triggerWorkspaceMonitorChange}"
     ];
 
     alt-shift-semicolon = "mode service";
@@ -86,7 +86,7 @@ in
       exec-on-workspace-change = [
         "/bin/bash"
         "-c"
-        "${trigger-workspace-change} FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
+        "${triggerWorkspaceChange} FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
       ];
 
       automatically-unhide-macos-hidden-apps = true;

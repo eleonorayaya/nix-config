@@ -58,7 +58,7 @@ nix fmt
  - [Nix Packages](https://search.nixos.org/packages)
 
 ### Neovim
- - [Nixvim Docs](https://nix-community.github.io/nixvim/)
+ - [Nixvim Docs](https://nix-community.github.io/nixvim/24.11/)
  - [Nixvim Github](https://github.com/nix-community/nixvim/blob/nixos-24.11/)
 
 #### Autosession
