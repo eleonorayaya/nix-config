@@ -1,7 +1,7 @@
 { pkgs, self, ... }:
 let
-  wallpaper_dir = "${self}/theme/wallpaper";
-  night_ramen = "${wallpaper_dir}/night-ramen-shop.jpg";
+  wallpaperDir = "${self}/theme/wallpaper";
+  nightRamen = "${wallpaperDir}/night-ramen-shop.jpg";
 in
 {
   fonts.packages = with pkgs; [
@@ -20,7 +20,7 @@ in
     stateVersion = 5;
 
     activationScripts.postUserActivation.text = ''
-      /usr/local/bin/desktoppr ${night_ramen}
+      /usr/local/bin/desktoppr ${nightRamen}
 
       # (Workaround) install mas manually
       # ${self}/scripts/manage-mas.sh
