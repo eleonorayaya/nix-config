@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  filter_ls = path: ext: (
+  filterLs = path: ext: (
     builtins.map (name: path + "/${name}") (
       builtins.filter (name: builtins.match ".*\\.${ext}" name != null) (
         builtins.attrNames (builtins.readDir path)
@@ -8,15 +8,15 @@ let
     )
   );
 
-  concat_ls = path: ext: (
+  concatLs = path: ext: (
     builtins.concatStringsSep "\n" (
       builtins.map (filename: builtins.readFile filename) (
-        filter_ls path ext
+        filterLs path ext
       )
     )
   );
 
-  attrs_to_env_vars = attrs: (
+  attrsToEnvVars = attrs: (
     pkgs.lib.strings.concatLines (
       map
         (key:
@@ -34,9 +34,9 @@ let
   colorToHex = color: (colorToHexWithOpacity color "ff");
 in
 {
-  inherit attrs_to_env_vars;
+  inherit attrsToEnvVars;
   inherit colorToHex;
   inherit colorToHexWithOpacity;
-  inherit concat_ls;
-  inherit filter_ls;
+  inherit concatLs;
+  inherit filterLs;
 }

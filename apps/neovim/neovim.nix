@@ -3,10 +3,10 @@
 }:
 let
   helpers = import ../../lib/helpers.nix { inherit pkgs; };
-  plugin_nix_files = helpers.filter_ls ./plugins "nix";
+  pluginNixFiles = helpers.filterLs ./plugins "nix";
 
-  config_lua_content = helpers.concat_ls ./lua "lua";
-  plugin_lua_content = helpers.concat_ls ./lua/plugins "lua";
+  configLuaContent = helpers.concatLs ./lua "lua";
+  pluginLuaContent = helpers.concatLs ./lua/plugins "lua";
 in
 {
   programs.nixvim = {
@@ -16,7 +16,7 @@ in
 
     imports = [
       ./options.nix
-    ] ++ plugin_nix_files;
+    ] ++ pluginNixFiles;
 
     colorschemes.catppuccin = {
       enable = true;
@@ -89,8 +89,8 @@ in
     ];
 
     extraConfigLuaPre = ''
-      ${config_lua_content}
-      ${plugin_lua_content}
+      ${configLuaContent}
+      ${pluginLuaContent}
     '';
   };
 }

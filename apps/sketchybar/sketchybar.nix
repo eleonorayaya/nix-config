@@ -98,7 +98,7 @@ let
     LOCK_ICON = icons.LOCK;
   };
 
-  envVars = helpers.attrs_to_env_vars (
+  envVars = helpers.attrsToEnvVars (
     barStyles // barIcons
   );
 in
