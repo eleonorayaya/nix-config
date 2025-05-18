@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     mac-app-util.url = "github:hraban/mac-app-util";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
@@ -43,6 +45,7 @@
     , mac-app-util
     , nix-darwin
     , nixpkgs
+    , nixpkgs-unstable
     , nixvim
     , nix-formatter-pack
     , nix-homebrew
@@ -97,6 +100,7 @@
           };
         };
 
+
         nixpkgs = {
           hostPlatform = "aarch64-darwin";
           config = {
@@ -149,6 +153,12 @@
                     mkdir -p $out/share/fonts/opentype
                     cp -R $src/*.otf $out/share/fonts/opentype/
                   '';
+                };
+              })
+              (final: _prev: {
+                unstable = import nixpkgs-unstable {
+                  inherit (final) system;
+                  config.allowUnfree = true;
                 };
               })
             ];

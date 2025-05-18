@@ -67,6 +67,18 @@ in
         action.__raw = "nvim_tree_reveal_current_file";
       }
 
+      # Snacks
+      {
+        key = "<leader>ns";
+        mode = "n";
+        action.__raw = "snacks_show_notifs";
+      }
+      {
+        key = "<leader>nn";
+        mode = "n";
+        action.__raw = "snacks_hide_notifs";
+      }
+
       # Telescope
       {
         key = "<M-p>";
