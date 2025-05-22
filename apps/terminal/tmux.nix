@@ -1,7 +1,31 @@
 { pkgs
 , user
+, styles
 , ...
 }:
+let
+  themePlugins = with pkgs.tmuxPlugins; {
+    catppuccin-frappe = {
+      plugin = catppuccin;
+      extraConfig = ''
+            set -g @catppuccin_flavor "frappe"
+            set -g @catppuccin_window_status_style "rounded"
+
+            set -g status-right-length 100
+            set -g status-left-length 100
+            set -g status-left ""
+            set -g status-right "#{E:@catppuccin_status_session}"
+      '';
+    };
+
+    rose-pine-moon = {
+      plugin = rose-pine;
+      extraConfig = ''
+            set -g @rose_pine_variant 'moon'
+      '';
+    };
+  };
+in
 {
   home-manager.users.${user.username} = _: {
     programs.tmux = {
@@ -13,18 +37,7 @@
       keyMode = "vi";
 
       plugins = with pkgs.tmuxPlugins; [
-        {
-          plugin = catppuccin;
-          extraConfig = ''
-            set -g @catppuccin_flavor "frappe"
-            set -g @catppuccin_window_status_style "rounded"
-
-            set -g status-right-length 100
-            set -g status-left-length 100
-            set -g status-left ""
-            set -g status-right "#{E:@catppuccin_status_session}"
-          '';
-        }
+        themePlugins.${styles.name}
         {
           plugin = vim-tmux-navigator;
         }

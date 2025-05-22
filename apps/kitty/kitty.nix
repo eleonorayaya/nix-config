@@ -1,34 +1,22 @@
 { user
 , pkgs
+, styles
 , ...
 }:
 let
-  themes = [
-    {
-      name = "catppuccin-frappe";
-      url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/frappe.conf";
-      hash = "sha256-boYuT8Ptiy1598hptuKX88lKOIbixOAwCvGX6ln92iQ=";
-    }
-    {
-      name = "rose-pine-moon";
-      url = "https://raw.githubusercontent.com/rose-pine/kitty/refs/heads/main/dist/rose-pine-moon.conf";
-      hash = "sha256-ivIvhG2/duKfUXeJqcYfGnlKzpR5bxhV0+R3FT6AF64=";
-    }
-  ];
+  themeConfigs =  {
+    catppuccin-frappe = {
+        url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/frappe.conf";
+        hash = "sha256-boYuT8Ptiy1598hptuKX88lKOIbixOAwCvGX6ln92iQ=";
+    };
 
-  themeFileMap = builtins.listToAttrs (builtins.map
-    (theme: {
-      name = ".config/kitty/themes/${theme.name}.conf";
-      value = {
-        source = pkgs.fetchurl {
-          inherit (theme) url;
-          inherit (theme) hash;
-        };
-      };
-    })
-    themes);
+    rose-pine-moon = {
+        url = "https://raw.githubusercontent.com/rose-pine/kitty/refs/heads/main/dist/rose-pine-moon.conf";
+        hash = "sha256-ivIvhG2/duKfUXeJqcYfGnlKzpR5bxhV0+R3FT6AF64=";
+    };
+  };
 
-  selectedTheme = "rose-pine-moon";
+  themeConfig = themeConfigs.${styles.name};
 in
 {
   config = {
@@ -75,7 +63,7 @@ in
         keybindings = {
           "cmd+k" = "";
         };
-        themeFile = selectedTheme;
+        themeFile = styles.name;
         extraConfig = ''
           # Enable ligatures
           font_features SFMono-Nerd-Font-Ligaturized-Regular +liga +calt
@@ -85,7 +73,11 @@ in
         '';
       };
 
-      home.file = themeFileMap;
+      home.file = {
+        ".config/kitty/themes/${styles.name}.conf" = {
+          source = pkgs.fetchurl themeConfig;
+        };
+      };
     };
   };
 }

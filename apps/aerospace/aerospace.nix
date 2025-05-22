@@ -126,6 +126,11 @@ in
         }
 
         {
+          # TickTick
+          "if".app-id = "com.TickTick.task.mac";
+          run = [ "move-node-to-workspace 7 --focus-follows-window" ];
+        }
+        {
           # Finder
           "if".app-id = "com.apple.finder";
           run = [ "layout floating" "move-node-to-workspace 1" ];
