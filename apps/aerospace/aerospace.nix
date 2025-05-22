@@ -1,5 +1,5 @@
 { pkgs
-, styles
+, theme
 , ...
 }:
 let
@@ -17,6 +17,15 @@ let
     alt-o = [ "mode main" "workspace 7" ];
     alt-p = [ "mode main" "workspace 8" ];
 
+    alt-shift-q = "move-node-to-workspace 1 --focus-follows-window";
+    alt-shift-w = "move-node-to-workspace 2 --focus-follows-window";
+    alt-shift-e = "move-node-to-workspace 3 --focus-follows-window";
+    alt-shift-r = "move-node-to-workspace 4 --focus-follows-window";
+    alt-shift-u = "move-node-to-workspace 5 --focus-follows-window";
+    alt-shift-i = "move-node-to-workspace 6 --focus-follows-window";
+    alt-shift-o = "move-node-to-workspace 7 --focus-follows-window";
+    alt-shift-p = "move-node-to-workspace 8 --focus-follows-window";
+
     alt-tab = "workspace-back-and-forth";
     alt-shift-tab = [
       "move-workspace-to-monitor --wrap-around next"
@@ -31,12 +40,12 @@ in
     enable = true;
     settings = {
       gaps = {
-        inner.horizontal = styles.windowMargin;
-        inner.vertical = styles.windowMargin;
-        outer.left = styles.screenMarginX;
-        outer.bottom = styles.screenMarginBot;
-        outer.top = styles.screenMarginTop + styles.statusBarHeight + styles.statusBarMarginBot;
-        outer.right = styles.screenMarginX;
+        inner.horizontal = theme.windowMargin;
+        inner.vertical = theme.windowMargin;
+        outer.left = theme.screenMarginX;
+        outer.bottom = theme.screenMarginBot;
+        outer.top = theme.screenMarginTop + theme.statusBarHeight + theme.statusBarMarginBot;
+        outer.right = theme.screenMarginX;
       };
 
       mode.main.binding = {
@@ -52,7 +61,7 @@ in
 
         # Home
         "1" = "main";
-        # Browser
+
         "2" = "main";
 
         # Unused
@@ -107,6 +116,7 @@ in
         {
           # Arc
           "if".app-id = "company.thebrowser.Browser";
+          "if".during-aerospace-startup = true;
           run = [ "move-node-to-workspace 2 --focus-follows-window" ];
         }
         {
@@ -115,6 +125,11 @@ in
           run = [ "layout floating" "move-node-to-workspace 1" ];
         }
 
+        {
+          # TickTick
+          "if".app-id = "com.TickTick.task.mac";
+          run = [ "move-node-to-workspace 7 --focus-follows-window" ];
+        }
         {
           # Finder
           "if".app-id = "com.apple.finder";
@@ -138,7 +153,6 @@ in
         {
           # Obsidian
           "if".app-id = "md.obsidian";
-          "if".during-aerospace-startup = true;
           run = [ "move-node-to-workspace 5" ];
         }
       ];
