@@ -15,12 +15,12 @@ let
       )
       (builtins.attrNames colorAttrs))
   );
-  
-  themeConfigs =  {
+
+  themeConfigs = {
     catppuccin-frappe = {
       themeFile = "${self}/theme/catppuccin/frappe.json";
 
-      fileMapper = (themeContent: {
+      fileMapper = themeContent: {
         inherit (themeContent) text;
 
         inherit (themeContent) overlay0;
@@ -34,7 +34,7 @@ let
         textHighlight = themeContent.lavender;
         workspaceActive = themeContent.flamingo;
         workspaceInactive = themeContent.overlay0;
-      });
+      };
 
       kitty = {
         url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/frappe.conf";
@@ -43,24 +43,25 @@ let
     };
 
     rose-pine-moon = {
-      # TODO
-      themeFile = "${self}/theme/catppuccin/frappe.json";
+      themeFile = "${self}/theme/rose-pine/moon.json";
 
-      fileMapper = (themeContent: {
-        text = "";
+      fileMapper = themeContent: {
+        inherit (themeContent) text;
 
-        overlay0 = "";
-        overlay1 = "";
-        overlay2 = "";
+        # TODO
+        overlay0 = themeContent.overlay;
+        overlay1 = themeContent.overlay;
+        overlay2 = themeContent.overlay;
 
-        surface0 = "";
-        surface1 = "";
-        surface2 = "";
+        # TODO
+        surface0 = themeContent.surface;
+        surface1 = themeContent.surface;
+        surface2 = themeContent.surface;
 
-        textHighlight = "";
-        workspaceActive = "";
-        workspaceInactive = "";
-      });
+        textHighlight = themeContent.highlightMed;
+        workspaceActive = themeContent.iris;
+        workspaceInactive = themeContent.foam;
+      };
 
       kitty = {
         url = "https://raw.githubusercontent.com/rose-pine/kitty/refs/heads/main/dist/rose-pine-moon.conf";
@@ -68,29 +69,34 @@ let
       };
     };
   };
-  
-  themes = (builtins.listToAttrs (
-    builtins.map (themeName:
-      let
-        config = themeConfigs.${themeName};
-        themeContent = builtins.fromJSON (builtins.readFile config.themeFile);
 
-        themeColors = config.fileMapper themeContent;
-        themeHexColors = mapColors themeColors "ff";
-        themeHexColors50 = mapColors themeColors "88";
-        themeHexColors25 = mapColors themeColors "44";
-      in {
-        name = themeName;
-        value = {
+  themes = builtins.listToAttrs (
+    builtins.map
+      (themeName:
+        let
+          config = themeConfigs.${themeName};
+          themeContent = builtins.fromJSON (builtins.readFile config.themeFile);
+
+          themeColors = config.fileMapper themeContent;
+          themeHexColors = mapColors themeColors "ff";
+          themeHexColors75 = mapColors themeColors "BF";
+          themeHexColors50 = mapColors themeColors "7F";
+          themeHexColors25 = mapColors themeColors "40";
+        in
+        {
           name = themeName;
+          value = {
+            name = themeName;
 
-          colors = themeColors;
-          hexColors = themeHexColors;
-          hexColors50 = themeHexColors50;
-          hexColors25 = themeHexColors25;
-        };
-      }
-    ) (builtins.attrNames themeConfigs)));
+            colors = themeColors;
+            hexColors = themeHexColors;
+            hexColors75 = themeHexColors75;
+            hexColors50 = themeHexColors50;
+            hexColors25 = themeHexColors25;
+          };
+        }
+      )
+      (builtins.attrNames themeConfigs));
 
   commonStyles = {
     # Status Bar
@@ -104,7 +110,7 @@ let
     windowMargin = 16;
   };
 
-  selectedTheme = themes.catppuccin-frappe;
+  selectedTheme = themes.rose-pine-moon;
   mergedTheme = commonStyles // selectedTheme;
 in
-  mergedTheme
+mergedTheme

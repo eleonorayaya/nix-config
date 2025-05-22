@@ -73,7 +73,7 @@
     wireshark
     zip
     zsh
-  
+
     # System UI
     aerospace
     jankyborders

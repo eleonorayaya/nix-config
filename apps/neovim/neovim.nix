@@ -1,4 +1,5 @@
 { pkgs
+, theme
 , ...
 }:
 let
@@ -7,6 +8,40 @@ let
 
   configLuaContent = helpers.concatLs ./lua "lua";
   pluginLuaContent = helpers.concatLs ./lua/plugins "lua";
+
+  themeConfigs = {
+    catppuccin-frappe = {
+      catppuccin = {
+        enable = true;
+        settings = {
+          flavour = "frappe";
+          transparent_background = true;
+
+          integrations = {
+            nvimtree = true;
+          };
+        };
+      };
+    };
+
+    rose-pine-moon = {
+      rose-pine = {
+        enable = true;
+        settings = {
+          variant = "moon";
+
+          extend_background_behind_borders = true;
+          styles = {
+            bold = false;
+            italic = true;
+            transparency = true;
+          };
+        };
+      };
+    };
+  };
+
+  themeConfig = themeConfigs.${theme.name};
 in
 {
   programs.nixvim = {
@@ -18,17 +53,7 @@ in
       ./options.nix
     ] ++ pluginNixFiles;
 
-    colorschemes.catppuccin = {
-      enable = true;
-      settings = {
-        flavour = "frappe";
-        transparent_background = true;
-
-        integrations = {
-          nvimtree = true;
-        };
-      };
-    };
+    colorschemes = themeConfig;
 
     keymaps = [
       # Comment
