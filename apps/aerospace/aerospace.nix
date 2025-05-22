@@ -1,5 +1,5 @@
 { pkgs
-, styles
+, theme
 , ...
 }:
 let
@@ -40,12 +40,12 @@ in
     enable = true;
     settings = {
       gaps = {
-        inner.horizontal = styles.windowMargin;
-        inner.vertical = styles.windowMargin;
-        outer.left = styles.screenMarginX;
-        outer.bottom = styles.screenMarginBot;
-        outer.top = styles.screenMarginTop + styles.statusBarHeight + styles.statusBarMarginBot;
-        outer.right = styles.screenMarginX;
+        inner.horizontal = theme.windowMargin;
+        inner.vertical = theme.windowMargin;
+        outer.left = theme.screenMarginX;
+        outer.bottom = theme.screenMarginBot;
+        outer.top = theme.screenMarginTop + theme.statusBarHeight + theme.statusBarMarginBot;
+        outer.right = theme.screenMarginX;
       };
 
       mode.main.binding = {

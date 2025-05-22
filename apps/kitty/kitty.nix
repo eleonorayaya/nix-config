@@ -1,6 +1,6 @@
 { user
 , pkgs
-, styles
+, theme
 , ...
 }:
 let
@@ -16,7 +16,7 @@ let
     };
   };
 
-  themeConfig = themeConfigs.${styles.name};
+  themeConfig = themeConfigs.${theme.name};
 in
 {
   config = {
@@ -63,7 +63,7 @@ in
         keybindings = {
           "cmd+k" = "";
         };
-        themeFile = styles.name;
+        themeFile = theme.name;
         extraConfig = ''
           # Enable ligatures
           font_features SFMono-Nerd-Font-Ligaturized-Regular +liga +calt
@@ -74,7 +74,7 @@ in
       };
 
       home.file = {
-        ".config/kitty/themes/${styles.name}.conf" = {
+        ".config/kitty/themes/${theme.name}.conf" = {
           source = pkgs.fetchurl themeConfig;
         };
       };

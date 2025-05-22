@@ -1,6 +1,6 @@
 { self
 , pkgs
-, styles
+, theme
 , ...
 }:
 let
@@ -61,27 +61,27 @@ let
     POPUP_BORDER_WIDTH = 2;
     POPUP_CORNER_RADIUS = 11;
 
-    ICON_COLOR = styles.hexColors.text;
+    ICON_COLOR = theme.hexColors.text;
     ICON_FONT = sfMono;
-    ICON_HIGHLIGHT_COLOR = styles.hexColors.textHighlight;
-    LABEL_COLOR = styles.hexColors.text;
-    LABEL_HIGHLIGHT_COLOR = styles.hexColors.textHighlight;
+    ICON_HIGHLIGHT_COLOR = theme.hexColors.textHighlight;
+    LABEL_COLOR = theme.hexColors.text;
+    LABEL_HIGHLIGHT_COLOR = theme.hexColors.textHighlight;
 
-    POPUP_BACKGROUND_COLOR = styles.hexColors.overlay0;
-    POPUP_BORDER_COLOR = styles.hexColors.overlay1;
+    POPUP_BACKGROUND_COLOR = theme.hexColors.overlay0;
+    POPUP_BORDER_COLOR = theme.hexColors.overlay1;
 
-    SHADOW_COLOR = styles.hexColors.surface2;
-    ACTIVE_WORKSPACE_COLOR = styles.hexColors.workspaceActive;
+    SHADOW_COLOR = theme.hexColors.surface2;
+    ACTIVE_WORKSPACE_COLOR = theme.hexColors.workspaceActive;
 
-    BAR_COLOR = styles.hexColors.surface0;
+    BAR_COLOR = theme.hexColors.surface0;
     BAR_CORNER_RADIUS = 9;
-    BAR_HEIGHT = styles.statusBarHeight;
-    BAR_MARGIN = styles.screenMarginX;
+    BAR_HEIGHT = theme.statusBarHeight;
+    BAR_MARGIN = theme.screenMarginX;
     BAR_PADDING_X = 16;
-    BAR_TOP_OFFSET = styles.screenMarginTop;
+    BAR_TOP_OFFSET = theme.screenMarginTop;
 
-    SPACES_WRAPPER_BACKGROUND = styles.hexColors.surface1;
-    SPACES_ITEM_BACKGROUND = styles.hexColors.surface2;
+    SPACES_WRAPPER_BACKGROUND = theme.hexColors.surface1;
+    SPACES_ITEM_BACKGROUND = theme.hexColors.surface2;
   };
 
   icons = import ./icons.nix;

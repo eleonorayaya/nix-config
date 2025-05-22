@@ -69,7 +69,7 @@ let
     };
   };
   
-  testTheme = (builtins.listToAttrs (
+  themes = (builtins.listToAttrs (
     builtins.map (themeName:
       let
         config = themeConfigs.${themeName};
@@ -88,44 +88,9 @@ let
           hexColors = themeHexColors;
           hexColors50 = themeHexColors50;
           hexColors25 = themeHexColors25;
-
-          # kitty = config.kitty;
-          # tmux = config.tmux;
         };
       }
     ) (builtins.attrNames themeConfigs)));
-
-  buildTheme = themeFile: colorMapFunc:
-    let
-      themeContent = builtins.fromJSON (builtins.readFile "${self}/theme/${themeFile}");
-
-      themeColors = colorMapFunc themeContent;
-      themeHexColors = mapColors themeColors "ff";
-      themeHexColors50 = mapColors themeColors "88";
-      themeHexColors25 = mapColors themeColors "44";
-    in
-    {
-      colors = themeColors;
-      hexColors = themeHexColors;
-      hexColors50 = themeHexColors50;
-      hexColors25 = themeHexColors25;
-    };
-
-  catppuccinFrappe = buildTheme "catppuccin/frappe.json" (themeContent: {
-    inherit (themeContent) text;
-
-    inherit (themeContent) overlay0;
-    inherit (themeContent) overlay1;
-    inherit (themeContent) overlay2;
-
-    inherit (themeContent) surface0;
-    inherit (themeContent) surface1;
-    inherit (themeContent) surface2;
-
-    textHighlight = themeContent.lavender;
-    workspaceActive = themeContent.flamingo;
-    workspaceInactive = themeContent.overlay0;
-  });
 
   commonStyles = {
     # Status Bar
@@ -139,7 +104,7 @@ let
     windowMargin = 16;
   };
 
-  selectedTheme = (pkgs.lib.debug.traceSeq testTheme testTheme.catppuccin-frappe);
+  selectedTheme = themes.catppuccin-frappe;
   mergedTheme = commonStyles // selectedTheme;
 in
   mergedTheme

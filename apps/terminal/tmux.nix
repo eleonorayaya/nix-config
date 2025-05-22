@@ -1,6 +1,6 @@
 { pkgs
 , user
-, styles
+, theme
 , ...
 }:
 let
@@ -25,6 +25,8 @@ let
       '';
     };
   };
+
+  themePlugin = themePlugins.${theme.name};
 in
 {
   home-manager.users.${user.username} = _: {
@@ -37,7 +39,7 @@ in
       keyMode = "vi";
 
       plugins = with pkgs.tmuxPlugins; [
-        themePlugins.${styles.name}
+        themePlugin      
         {
           plugin = vim-tmux-navigator;
         }

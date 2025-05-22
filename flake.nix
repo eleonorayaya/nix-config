@@ -69,7 +69,7 @@
         homeDirectory = "/Users/eleonora";
       };
 
-      styles = import ./config/styles.nix { pkgs = nixpkgs; inherit self; };
+      theme = import ./config/theme.nix { pkgs = nixpkgs; inherit self; };
 
       configuration = { pkgs, ... }: {
         networking = {
@@ -133,7 +133,7 @@
           # Pass variables to other modules
           {
             _module.args = {
-              inherit user host self styles;
+              inherit user host self theme;
             };
           }
 
