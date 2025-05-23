@@ -22,6 +22,7 @@ let
       plugin = rose-pine;
       extraConfig = ''
         set -g @rose_pine_variant 'moon'
+
       '';
     };
   };
@@ -45,16 +46,9 @@ in
         }
         {
           plugin = resurrect;
-          extraConfig = ''
-            set -g @resurrect-strategy-nvim 'session'
-          '';
         }
         {
           plugin = continuum;
-          extraConfig = ''
-            set -g @continuum-restore 'on'
-            set -g @continuum-save-interval '1'
-          '';
         }
       ];
 
@@ -71,17 +65,25 @@ in
         unbind '"'
         unbind %
 
-
-        bind-key -r -T prefix h resize-pane -L 6
+        bind-key -r -T prefix h resize-pane -L 5
         bind-key -r -T prefix j resize-pane -D 5
         bind-key -r -T prefix k resize-pane -U 5
-        bind-key -r -T prefix l resize-pane -R
+        bind-key -r -T prefix l resize-pane -R 5
 
         bind-key -r -T prefix p  display-popup -E "tms switch"
         bind-key -r -T prefix P  display-popup -E "tms"
-        bind-key -r -T prefix C-p pipe-pane -o 'cat >>~/output.#I-#P'
 
         set-option -g default-command "${pkgs.zsh}/bin/zsh"
+
+        # Add padding above status bar
+        set -g status 2
+        run-shell "tmux set-option -g status-format[1] '#{status-format[0]}'"
+        set -g status-format[0] ' '
+
+        set -g @continuum-restore 'on'
+        set -g @resurrect-strategy-nvim 'session'
+        set -g @continuum-save-interval '1'
+        set -g @resurrect-processes '~zsh'
       '';
     };
   };

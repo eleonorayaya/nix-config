@@ -65,7 +65,6 @@
     oh-my-posh
     ripgrep
     syncthing
-    tmux
     tree
     unrar
     unzip
@@ -81,7 +80,10 @@
 
     # Text Editors
     vim
-
+    
+    # Terminal
+    neofetch
+    tmux
     tmux-sessionizer
   ];
 }
