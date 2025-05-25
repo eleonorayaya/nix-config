@@ -13,6 +13,9 @@
   CAT = "󰄛";
   CHAT = "󱗠";
   CHAT_2 = "󱥂";
+  CHECKLIST = "";
+  CHECKLIST_2 = "";
+  CHECKLIST_3 = "";
   CLIPPY = "󰅏";
   CODE = "";
   CODE_2 = "";

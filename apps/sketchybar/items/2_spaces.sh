@@ -3,13 +3,36 @@
 set -x
 set -e
 
+BASE_ICON_SIZE=18
+
 declare -A SPACE_ICONS=(
   ["1"]="$HOME_ICON"
   ["2"]="$BROWSER_ICON"
   ["3"]="$DISCORD_ICON"
   ["5"]="$OBSIDIAN_ICON"
+  ["7"]="$TASKS_ICON"
   ["8"]="$MAIL_ICON" 
   ["T"]="$TERMINAL_ICON"
+)
+
+declare -A SPACE_ICON_SIZES=(
+  ["1"]="20"
+  ["2"]="$BASE_ICON_SIZE"
+  ["3"]="$BASE_ICON_SIZE"
+  ["5"]="20"
+  ["7"]="18"
+  ["8"]="22" 
+  ["T"]="20"
+)
+
+declare -A SPACE_ICON_OFFSETS=(
+  ["1"]="0"
+  ["2"]="0"
+  ["3"]="0"
+  ["5"]="0"
+  ["7"]="-1"
+  ["8"]="-1" 
+  ["T"]="0"
 )
 
 sketchybar --add event aerospace_workspace_change
@@ -37,10 +60,12 @@ draw_space_icons() {
         label.drawing=off
         display="${display}"
         icon="${SPACE_ICONS[$sid]}" 
+        icon.font="$ICON_FONT:Regular:${SPACE_ICON_SIZES[$sid]}"
         icon.highlight_color="$ACTIVE_WORKSPACE_COLOR"
         icon.padding_left=8
         icon.padding_right=8
         icon.background.drawing=off
+        y_offset="${SPACE_ICON_OFFSETS[$sid]}"
         click_script="aerospace workspace ${sid}" 
         script="plugin_aerospace ${sid}"
       ) 

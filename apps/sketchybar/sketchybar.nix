@@ -92,6 +92,7 @@ let
     DISCORD_ICON = icons.DISCORD;
     OBSIDIAN_ICON = icons.NOTES_2;
     MAIL_ICON = icons.MAIL_2;
+    TASKS_ICON = icons.CHECKLIST;
     TERMINAL_ICON = icons.TERMINAL_2;
     PREFERENCES_ICON = icons.PREFERENCES;
     ACTIVITY_ICON = icons.BOMB;
