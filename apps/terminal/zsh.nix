@@ -1,4 +1,7 @@
-{ pkgs, user, ... }: {
+{ pkgs
+, user
+, ...
+}: {
   home-manager.users.${user.username} = _: {
     programs.zsh = {
       enable = true;
@@ -31,10 +34,6 @@
           name = "oh-my-posh";
           src = pkgs.oh-my-posh;
         }
-        {
-          name = "killgrep";
-          src = ./functions/killgrep.zsh;
-        }
       ];
 
       dirHashes = {
@@ -58,10 +57,6 @@
           "--color=border:#414559,label:#c6d0f"
         ];
       };
-
-      initExtraFirst = ''
-
-      '';
 
       completionInit = ''
         # Case insensitive matching for completion with smart case behavior
