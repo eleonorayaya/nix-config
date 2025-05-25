@@ -59,6 +59,9 @@ in
 
           # shell
           shell_integration = "enabled";
+
+          open_url_with = "default";
+          mouse_map = "ctrl+left press grabbed,ungrabbed mouse_handle_click link";
         };
         keybindings = {
           "cmd+k" = "";

@@ -54,7 +54,6 @@
     coreutils
     defaultbrowser
     du-dust
-    fastfetch
     fd
     fzf
     iftop
@@ -65,7 +64,6 @@
     oh-my-posh
     ripgrep
     syncthing
-    tmux
     tree
     unrar
     unzip
@@ -82,6 +80,9 @@
     # Text Editors
     vim
 
+    # Terminal
+    fastfetch
+    tmux
     tmux-sessionizer
   ];
 }

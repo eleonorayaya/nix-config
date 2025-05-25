@@ -55,7 +55,12 @@ nix fmt
 
 
 ## Docs Links
+
+### Nix
  - [Nix Packages](https://search.nixos.org/packages)
+
+### home-manager
+ - [Config options](https://home-manager.dev/manual/24.11/options.xhtml)
 
 ### Neovim
  - [Nixvim Docs](https://nix-community.github.io/nixvim/24.11/)
