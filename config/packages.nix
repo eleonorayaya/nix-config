@@ -54,7 +54,6 @@
     coreutils
     defaultbrowser
     du-dust
-    fastfetch
     fd
     fzf
     iftop
@@ -80,9 +79,9 @@
 
     # Text Editors
     vim
-    
+
     # Terminal
-    neofetch
+    fastfetch
     tmux
     tmux-sessionizer
   ];

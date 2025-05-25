@@ -10,6 +10,8 @@
 
 ### Zsh
  - [Rebind command suggestions](https://nixos.wiki/wiki/Zsh#Zsh-autocomplete_not_working)
+ - Update fzf colors var to use theme
+ - Update oh-my-posh to use theme
 
 
 ### Sketchybar

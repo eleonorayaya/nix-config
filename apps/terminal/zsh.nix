@@ -4,7 +4,9 @@
       enable = true;
       autosuggestion.enable = true;
       enableCompletion = true;
+
       shellAliases = {
+        c = "clear";
         cat = "bat";
         diff = "difft";
         du = "dust";
@@ -23,15 +25,42 @@
         tf = "terraform";
         tfmt = "terraform fmt -recursive";
       };
+
       plugins = [
         {
           name = "oh-my-posh";
           src = pkgs.oh-my-posh;
         }
+        {
+          name = "killgrep";
+          src = ./functions/killgrep.zsh;
+        }
       ];
 
+      dirHashes = {
+        idrive = "$HOME/Library/Mobile Documents/com~apple~CloudDocs";
+      };
+
+      history = {
+        ignorePatterns = [
+          "pwd"
+          "ls *"
+          "cd *"
+        ];
+      };
+
+      sessionVariables = {
+        FZF_DEFAULT_OPTS = builtins.concatStringsSep " " [
+          "--color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284"
+          "--color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf"
+          "--color=marker:#babbf1,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
+          "--color=selected-bg:#51576d"
+          "--color=border:#414559,label:#c6d0f"
+        ];
+      };
+
       initExtraFirst = ''
-        export HISTIGNORE="pwd:ls:cd"
+
       '';
 
       completionInit = ''
@@ -41,14 +70,9 @@
 
       initExtra = ''
         eval "$(oh-my-posh init zsh --config ${pkgs.oh-my-posh}/share/oh-my-posh/themes/catppuccin_frappe.omp.json)"
-        export FZF_DEFAULT_OPTS=" \
-          --color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
-          --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
-          --color=marker:#babbf1,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284 \
-          --color=selected-bg:#51576d \
-          --color=border:#414559,label:#c6d0f5"
+        . ~/.zsh/helpers/index.zsh
 
-        . ~/.dotfiles/init.zsh
+        fastfetch
       '';
     };
   };
