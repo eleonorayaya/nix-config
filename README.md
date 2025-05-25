@@ -62,6 +62,9 @@ nix fmt
 ### home-manager
  - [Config options](https://home-manager.dev/manual/24.11/options.xhtml)
 
+### sketchybar
+ - [Configuration](https://felixkratz.github.io/SketchyBar/config/items#geometry-properties)
+
 ### Neovim
  - [Nixvim Docs](https://nix-community.github.io/nixvim/24.11/)
  - [Nixvim Github](https://github.com/nix-community/nixvim/blob/nixos-24.11/)
