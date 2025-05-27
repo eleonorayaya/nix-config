@@ -21,3 +21,8 @@
  - [Config inspo](https://github.com/FelixKratz/SketchyBar/discussions/47?sort=top)
  - [Config inspo](https://github.com/mvritz/dotfiles)
 
+
+### neovim
+ - better bottom bar / themes
+ - clean up styles of file tree / remove ~s / hide bottom bar
+ - fix tab to accept cmp suggestion

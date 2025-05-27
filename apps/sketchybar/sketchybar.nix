@@ -73,6 +73,7 @@ let
     SHADOW_COLOR = theme.hexColors.surface2;
     ACTIVE_WORKSPACE_COLOR = theme.hexColors.workspaceActive;
 
+    BAR_BORDER_COLOR = theme.hexColors.windowBorder;
     BAR_COLOR = theme.hexColors75.surface0;
     BAR_CORNER_RADIUS = 9;
     BAR_HEIGHT = theme.statusBarHeight;
