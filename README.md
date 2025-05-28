@@ -76,6 +76,12 @@ nix fmt
  - [Github](https://github.com/ThePrimeagen/harpoon/tree/harpoon2)
  - [Nixvim github](https://github.com/nix-community/nixvim/blob/nixos-24.11/plugins/by-name/harpoon/default.nix)
 
+#### Lualine (Statusbar)
+ - [Docs](https://github.com/nvim-lualine/lualine.nvim/tree/master)
+
+### Rose Pine
+ - [Plugins](https://rosepinetheme.com/themes/)
+
 
 ## Debugging
 

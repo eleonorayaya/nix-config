@@ -48,19 +48,18 @@ let
       fileMapper = themeContent: {
         inherit (themeContent) text;
 
-        # TODO
         overlay0 = themeContent.overlay;
         overlay1 = themeContent.overlay;
         overlay2 = themeContent.overlay;
 
-        # TODO
-        surface0 = themeContent.surface;
-        surface1 = themeContent.surface;
+        surface0 = themeContent.base;
+        surface1 = themeContent.pine;
         surface2 = themeContent.surface;
 
+        windowBorder = themeContent.iris;
         textHighlight = themeContent.highlightMed;
-        workspaceActive = themeContent.iris;
-        workspaceInactive = themeContent.foam;
+        workspaceActive = themeContent.rose;
+        workspaceInactive = themeContent.iris;
       };
 
       kitty = {

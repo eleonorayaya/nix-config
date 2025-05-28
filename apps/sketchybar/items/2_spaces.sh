@@ -77,7 +77,6 @@ draw_space_icons() {
 
       FOCUSED_WORKSPACE="$FOCUSED_WORKSPACE" NAME="space.${sid}" plugin_aerospace "${sid}" &
     fi
-
   done
 }
 
@@ -85,10 +84,7 @@ draw_space_icons 1
 draw_space_icons 2
 
 wrapper=(
-  background.color="$SPACES_WRAPPER_BACKGROUND"
-  background.border_color="$SPACES_ITEM_BACKGROUND"
-  background.border_width=2
-  background.drawing=on
+  background.drawing=off
 )
 
 separator=(
