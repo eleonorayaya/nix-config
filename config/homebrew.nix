@@ -11,7 +11,6 @@ _: {
       "homebrew/cask"
     ];
     brews = [
-      # "neovim"
       "rustup"
     ];
     casks = [

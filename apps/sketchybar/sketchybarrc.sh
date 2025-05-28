@@ -15,7 +15,7 @@ bar=(
   border_width=2
   corner_radius="$BAR_CORNER_RADIUS"
   sticky=off
-  blur_radius=2
+  blur_radius=48
   font_smoothing=on
 )
 

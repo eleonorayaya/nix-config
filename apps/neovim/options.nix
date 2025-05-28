@@ -4,6 +4,7 @@
     relativenumber = true;
     number = true;
 
+    laststatus = 3;
     tabstop = 2;
     shiftwidth = 2;
     expandtab = true;
@@ -16,15 +17,10 @@
 
     cursorline = true;
 
-    signcolumn = "yes";
+    signcolumn = "no";
 
     backspace = "indent,eol,start";
 
     swapfile = false;
-
-    # TODO: fix this
-    clipboard = {
-      register = "unnamedplus";
-    };
   };
 }
