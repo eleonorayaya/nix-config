@@ -24,13 +24,6 @@
                 right = 0;
               };
             }
-            # {
-            #   __unkeyed-1 = "filename";
-            #   path = 1;
-            #   padding = {
-            #     left = 0;
-            #   };
-            # }
           ];
           lualine_c = [ ];
           lualine_x = [ ];
