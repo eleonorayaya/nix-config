@@ -20,10 +20,10 @@
 
 
 ### neovim
- - fix session restore
  - fix tab to accept cmp suggestion
  - don't allow window split when file tree is focused
  - add tab bar and redo lualine styles
+ - try [telescope-cmd](https://github.com/jonarrien/telescope-cmdline.nvim)
 
 ## Misc 
  - Try [DMenu](https://github.com/oNaiPs/dmenu-mac) universal menu / spotlight replacement
