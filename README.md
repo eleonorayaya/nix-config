@@ -79,6 +79,9 @@ nix fmt
 #### Lualine (Statusbar)
  - [Docs](https://github.com/nvim-lualine/lualine.nvim/tree/master)
 
+#### Grug-Far
+ - [Docs](https://github.com/MagicDuck/grug-far.nvim)
+
 ### Rose Pine
  - [Plugins](https://rosepinetheme.com/themes/)
 

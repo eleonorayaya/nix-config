@@ -68,6 +68,13 @@ in
         action.__raw = "comment_toggle_selection";
       }
 
+      # Gitblame
+      {
+        key = "<leader>bb";
+        mode = "n";
+        action.__raw = "gitblame_toggle";
+      }
+
       # Harpoon
       {
         key = "<leader>a";

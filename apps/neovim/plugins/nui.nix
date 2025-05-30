@@ -1,6 +1,6 @@
 {
   plugins = {
-    hop = {
+    nui = {
       enable = true;
     };
   };

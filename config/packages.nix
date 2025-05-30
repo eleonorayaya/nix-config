@@ -35,9 +35,9 @@
     # Software Development
     # act
     # difftastic
-    # docker
-    # docker-client
-    # docker-compose
+    docker
+    docker-client
+    docker-compose
     # flyctl
     gcc
     # gh

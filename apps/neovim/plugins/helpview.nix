@@ -1,7 +1,8 @@
 {
   plugins = {
-    hop = {
+    helpview = {
       enable = true;
     };
   };
 }
+
