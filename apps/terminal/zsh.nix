@@ -34,6 +34,11 @@
           name = "oh-my-posh";
           src = pkgs.oh-my-posh;
         }
+        {
+          name = "vi-mode";
+          src = pkgs.zsh-vi-mode;
+          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+        }
       ];
 
       dirHashes = {
@@ -49,13 +54,13 @@
       };
 
       sessionVariables = {
-        FZF_DEFAULT_OPTS = builtins.concatStringsSep " " [
-          "--color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284"
-          "--color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf"
-          "--color=marker:#babbf1,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
-          "--color=selected-bg:#51576d"
-          "--color=border:#414559,label:#c6d0f"
-        ];
+        # FZF_DEFAULT_OPTS = builtins.concatStringsSep " " [
+        #   "--color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284"
+        #   "--color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf"
+        #   "--color=marker:#babbf1,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
+        #   "--color=selected-bg:#51576d"
+        #   "--color=border:#414559,label:#c6d0f"
+        # ];
       };
 
       completionInit = ''

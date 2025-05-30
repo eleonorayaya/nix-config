@@ -34,7 +34,7 @@
         indent = { enabled = false; };
         input = { enabled = false; };
         layout = { enabled = false; };
-        lazygit = { enabled = false; };
+        lazygit = { enabled = true; };
         picker = { enabled = false; };
         profiler = { enabled = false; };
         scratch = { enabled = false; };

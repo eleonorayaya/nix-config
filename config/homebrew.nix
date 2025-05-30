@@ -12,6 +12,7 @@ _: {
     ];
     brews = [
       "rustup"
+      "go-task"
     ];
     casks = [
       # Security

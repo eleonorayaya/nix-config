@@ -1,7 +1,9 @@
 {
   plugins = {
-    hop = {
+    lazygit = {
       enable = true;
     };
   };
 }
+
+
