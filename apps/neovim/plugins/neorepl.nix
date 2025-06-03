@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   extraPlugins = [
-    pkgs.unstable.vimPlugins.neorepl-nvim
+    pkgs.vimPlugins.neorepl-nvim
   ];
   extraConfigLua = ''
     vim.keymap.set('n', '<leader>rr', function()

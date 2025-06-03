@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   extraPlugins = [
-    pkgs.unstable.vimPlugins.auto-session
+    pkgs.vimPlugins.auto-session
   ];
   extraConfigLua = ''
     require('auto-session').setup({
